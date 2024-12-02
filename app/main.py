@@ -17,6 +17,7 @@ from sklearn.neighbors import NearestNeighbors
 from scipy.sparse import coo_matrix
 from datetime import datetime
 import pytz
+import os
 
 # Page configuration
 st.set_page_config(
