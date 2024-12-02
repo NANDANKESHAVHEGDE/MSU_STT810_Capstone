@@ -11,3 +11,6 @@ Recommendation Model Development: Implement statistical models such as Bayesian 
 Feature Engineering: Create additional features based on time, session behavior, and user preferences.
 Evaluation Metrics: Measure the performance of the recommendation system using metrics like Precision@K, Mean Average Precision (MAP), and more.
 Dashboard Implementation: Build an interactive dashboard (R Shiny or Dash) to visualize recommendations and key metrics.
+
+Link to stratified data:https://drive.google.com/file/d/14bi-ByOgQqMHpxU6m61VzhxXbBf0RHQq/view?usp=sharing
+Link to the enhanced data : https://drive.google.com/file/d/1YcnadUrqyq68Cag_7diw9JW9yUPDvkhr/view?usp=drive_link
