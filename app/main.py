@@ -62,13 +62,14 @@ def load_data():
         return None
 
 data = load_data()
+
 # Define the base directory dynamically
 BASE_DIR = Path(__file__).resolve().parent.parent  # Adjust relative to your `app` folder
 
 # Build paths dynamically
-price_image_path = BASE_DIR / "Images" / "Data_prep2.PNG"
-event_types_image_path = BASE_DIR / "Images" / "Data_prep3.PNG"
-pmf_image_path = BASE_DIR / "Images" / "Data_prep1.PNG"
+price_image = BASE_DIR / "Images" / "Data_prep2.PNG"
+event_types_image = BASE_DIR / "Images" / "Data_prep3.PNG"
+pmf_image= BASE_DIR / "Images" / "Data_prep1.PNG"
 
 # Sidebar navigation
 st.sidebar.title("Navigation")
