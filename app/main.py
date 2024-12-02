@@ -60,6 +60,7 @@ def load_data():
         return None
 
 data = load_data()
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Sidebar navigation
 st.sidebar.title("Navigation")
@@ -221,7 +222,7 @@ elif selected_page == "Data Preparation":
         unsafe_allow_html=True,
     )
     # Display Price Distribution Image
-    price_image = Image.open("../Images/Data_prep2.png")  # Replace with the correct path
+    price_image = os.path.join(BASE_DIR,  "..","Images", "Data_prep2.png")  # Replace with the correct path
     st.image(price_image, caption="Price Distribution (Original vs. Sampled)", use_column_width=True)
 
     # Visualization 2: Distribution of Event Types
@@ -239,7 +240,7 @@ elif selected_page == "Data Preparation":
         unsafe_allow_html=True,
     )
     # Display Event Types Distribution Image
-    event_types_image = Image.open("../Images/Data_prep3.png")  # Replace with the correct path
+    event_types_image = os.path.join(BASE_DIR, "..", "Images", "Data_prep3.png") # Replace with the correct path
     st.image(event_types_image, caption="Event Types Distribution (Original vs. Sampled)", use_column_width=True)
 
     # Visualization 3: PMF of User Activity
@@ -257,7 +258,7 @@ elif selected_page == "Data Preparation":
         unsafe_allow_html=True,
     )
     # Display PMF of User Activity Image
-    pmf_image = Image.open("../Images/Data_prep1.png")  # Replace with the correct path
+    pmf_image = os.path.join(BASE_DIR, "..", "Images", "Data_prep1.png")  # Replace with the correct path
     st.image(pmf_image, caption="PMF of User Activity (Original vs. Sampled)", use_column_width=True)
 
     # Concluding Note
