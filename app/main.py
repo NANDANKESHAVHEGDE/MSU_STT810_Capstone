@@ -10,6 +10,7 @@ from sklearn.cluster import KMeans
 import gdown
 import zipfile
 import io
+import pickle
 from PIL import Image
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.neighbors import NearestNeighbors
