@@ -61,7 +61,7 @@ def load_data():
         return None
 
 data = load_data()
-base_dir = os.path.dirname(os.path.abspath(__file__))
+base_dir = os.getcwd()
 event_types_image = os.path.join(base_dir, "../Images/Data_prep3.png")
 price_image = os.path.join(base_dir, "../Images/Data_prep2.png")
 pmf_image = os.path.join(base_dir, "../Images/Data_prep1.png")
