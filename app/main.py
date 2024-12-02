@@ -61,10 +61,10 @@ def load_data():
         return None
 
 data = load_data()
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-event_types_image = os.path.join(os.path.dirname(BASE_DIR), "Images", "Data_prep3.png")
-price_image = os.path.join(os.path.dirname(BASE_DIR), "Images", "Data_prep2.png")
-pmf_image = os.path.join(os.path.dirname(BASE_DIR), "Images", "Data_prep1.png")
+base_dir = os.path.dirname(os.path.abspath(__file__))
+event_types_image = os.path.join(base_dir, "../Images/Data_prep3.png")
+price_image = os.path.join(base_dir, "../Images/Data_prep2.png")
+pmf_image = os.path.join(base_dir, "../Images/Data_prep1.png")
 
 # Sidebar navigation
 st.sidebar.title("Navigation")
