@@ -259,7 +259,7 @@ elif selected_page == "Data Preparation":
         unsafe_allow_html=True,
     )
     # Display PMF of User Activity Image
-    pmf_image = os.path.join("..",BASE_DIR,,"Images", "Data_prep1.png")  # Replace with the correct path
+    pmf_image = os.path.join("..",BASE_DIR,"Images", "Data_prep1.png")  # Replace with the correct path
     st.image(pmf_image, caption="PMF of User Activity (Original vs. Sampled)", use_column_width=True)
 
     # Concluding Note
