@@ -70,11 +70,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent  # Adjust relative to your `ap
 price_image = BASE_DIR / "Images" / "Data_prep2.PNG"
 event_types_image = BASE_DIR / "Images" / "Data_prep3.PNG"
 pmf_image= BASE_DIR / "Images" / "Data_prep1.PNG"
-hpt_image1= BASE_DIR / "Images" / "Hypothesis_testing1.PNG"
-hpt_image2= BASE_DIR / "Images" / "Hypothesis_testing2.PNG"
-hpt_image3= BASE_DIR / "Images" / "Hypothesis_testing3.PNG"
-by_image1= BASE_DIR / "Images" / "Bayesian_approach1.PNG"
-by_image2 = BASE_DIR / "Images" / "Bayesian_approach2.PNG"
+price1_sg_image = BASE_DIR / "Images" / "price1_sg.PNG"
+price2_sg_image = BASE_DIR / "Images" / "price2_sg.PNG"
+price3_sg_image = BASE_DIR / "Images" / "price3_sg.PNG"
+product1_sg_image = BASE_DIR / "Images" / "product1_sg.PNG"
+product2_sg_image = BASE_DIR / "Images" / "product2_sg.PNG"
+brand1_sg_image = BASE_DIR / "Images" / "brand1_sg.PNG"
+brand2_sg_image = BASE_DIR / "Images" / "brand2_sg.PNG"
+brand3_sg_image = BASE_DIR / "Images" / "brand3_sg.PNG"
+brand4_sg_image = BASE_DIR / "Images" / "brand4_sg.PNG"
+
+# hpt_image1= BASE_DIR / "Images" / "Hypothesis_testing1.PNG"
+# hpt_image2= BASE_DIR / "Images" / "Hypothesis_testing2.PNG"
+# hpt_image3= BASE_DIR / "Images" / "Hypothesis_testing3.PNG"
+# by_image1= BASE_DIR / "Images" / "Bayesian_approach1.PNG"
+# by_image2 = BASE_DIR / "Images" / "Bayesian_approach2.PNG"
 
 # Sidebar navigation
 st.sidebar.title("Navigation")
@@ -396,101 +406,141 @@ elif selected_page == "EDA":
 
 
 # Hypothesis Testing Tab
-elif selected_page == "Hypothesis Testing":
-    st.markdown("<div class='main-header'>Hypothesis Testing in E-commerce</div>", unsafe_allow_html=True)
-    
-    st.markdown(
-        """
-        <div class='sub-header'>
-        Hypothesis testing provides a statistical foundation for understanding patterns in purchase behavior. This section includes:
-        <ul>
-            <li><b>One-Sample T-Test:</b> Comparison of brand-specific mean purchase values against the population.</li>
-            <li><b>Two-Sample T-Test:</b> Analysis of mean purchase values between high and low premium products.</li>
-        </ul>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
 
-    # Distribution of Product Premiumness
-    hpt_image3_path = Image.open(hpt_image3) # Replace with the correct path
-    st.markdown("### Distribution of Product Premiumness")
-    st.image(hpt_image3_path, caption="Distribution of Product Premiumness with Mean log Price")
+elif selected_page == 'Hypothesis Testing':
 
-    st.markdown(
-        """
-        **Insight:**  
-        This visualization highlights the count of products across low, medium, and high premium categories along with their mean log price.  
-        - The high premium category has the highest mean log price, as expected, while the low premium category features the most products by count.
-        - Medium premium products serve as a balance between price and volume.  
-        """
-    )
+    # def show(image_url):
+    #     st.image(image_url, use_column_width=True)
 
-    hpt_image1_path = Image.open(hpt_image1) # Replace with the correct path
-    st.markdown("### One-Sample T-Test: Brand 'runail'")
-    st.image(hpt_image1_path, caption="One-Sample T-Test: Brand 'runail'")
-    
-    st.markdown(
-        """
-        **Context:**  
-        This analysis investigates whether the mean purchase value for products under the brand 'runail' differs significantly from the mean purchase value across the entire population.  
+    tab1, tab2 = st.tabs(["Hypothesis Testing 1", "Hypothesis Testing 2"])
 
-        **Results Interpretation:**  
-        - **Sample Size:** The test compares a subset of 23,325 purchases for 'runail' against the population of 199,743 purchases.  
-        - **Mean Purchase Values:**  
-          - 'runail': 0.219121 (indicating a higher average purchase value for this brand).  
-          - Population: 0.146053.  
-        - **T-Statistic and P-Value:**  
-          - The high t-statistic value (10.018781) and extremely small p-value (close to 0) indicate strong evidence against the null hypothesis.  
-        - **Confidence Interval:**  
-          - The confidence interval (-0.204826, 0.233416) does not include 0, further supporting the rejection of the null hypothesis.  
+    with tab2:
+        # Display hypothesis testing description
+        st.write("# Hypothesis Testing 2")
 
-        **Conclusion:**  
-        There is a statistically significant difference in purchase values for 'runail' compared to the population.  
-        """
-    )
-    
-    hpt_image2_path = Image.open(hpt_image2) # Replace with the correct path
-    st.markdown("### Two-Sample T-Test: High vs. Low Premium Products")
-    st.image(hpt_image2_path, caption="Two-Sample T-Test: High vs. Low Premium Products")
-    
-    st.markdown(
-        """
-        **Context:**  
-        This analysis examines whether there is a significant difference in the average purchase values between high premium and low premium products.  
+        # Hypothesis scenario introduction
+        st.write("""
+        High premiumness products are often considered more desirable due to their perceived higher quality and value. 
+        But, do they actually have a higher purchase rate % than low premiumness products? 
+        """)
 
-        **Results Interpretation:**  
-        - **Sample Size:** A comparison between 219,529 purchases of high premium products and 203,578 purchases of low premium products ensures robust statistical power.  
-        - **Mean Purchase Values:**  
-          - High Premium: 0.062538 (lower mean purchase value).  
-          - Low Premium: 0.129965 (higher mean purchase value).  
-        - **T-Statistic and P-Value:**  
-          - A large negative t-statistic (-74.460993) and a p-value of 0.000000 provide strong evidence to reject the null hypothesis.  
-        - **Confidence Intervals:**  
-          - High Premium: (0.0615, 0.0635) — narrow range, indicating precise estimates.  
-          - Low Premium: (0.1284, 0.1314) — narrow range, reflecting the higher purchase value for low premium products.  
-        - **Effect Size (Cohen's \(d\)):**  
-          - A value of -0.229109 indicates a small to medium effect size, suggesting that the difference, while statistically significant, may not be practically large.  
-        - **Power of the Test:**  
-          - A power of 1.000000 confirms that the test is highly reliable in detecting the difference.  
+        # Price distribution
+        st.write("First, let’s check the price distribution.")
+        
+        price1_sg_image = Image.open(price1_sg_image) # Replace with the correct path
+        st.image(price1_sg_image, use_column_width=True)
+        
+        st.write("""
+        The price distribution is skewed. After applying a log transformation, the distribution becomes normal.
+        Let's look at that.
+        """)
+        
+        price2_sg_image = Image.open(price2_sg_image) # Replace with the correct path
+        st.image(price2_sg_image, use_column_width=True)
+        
+        # Splitting the data
+        st.write("""
+        Let's split the data into three buckets: low, medium, and high premiumness, to avoid class imbalance.
+        """)
+        
+        price3_sg_image = Image.open(price3_sg_image) # Replace with the correct path
+        st.image(price3_sg_image, use_column_width=True)
+        
+        # Product comparison
+        st.write("""
+        Since we have two groups, we’ll use a Two-Sample t-test to check if the purchase values differ.
+        """)
 
-        **Conclusion:**  
-        The statistically significant difference highlights that low premium products generally have higher purchase values than high premium products.  
-        """
-    )
+        product1_sg_image = Image.open(product1_sg_image) # Replace with the correct path
+        st.image(product1_sg_image, use_column_width=True)
 
-    st.markdown(
-        """
-        <div class='sub-header'>
-        **Actionable Insights:**
-        <ul>
-            <li>The higher purchase values for 'runail' suggest potential for premium branding or marketing campaigns focusing on this brand.</li>
-            <li>The observed preference for low premium products may indicate consumer price sensitivity, particularly for value-driven segments.</li>
-        </ul>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+        # T-test results
+        st.subheader("After running the Two-Sample t-test")
+
+        product2_sg_image = Image.open(product2_sg_image) # Replace with the correct path
+        st.image(product2_sg_image, use_column_width=True)
+        
+        st.write("""
+        The p-value is zero, and the confidence intervals for both groups do not overlap. This means the difference in purchase rates % is significant.
+        """)
+
+        st.write("""
+        - Confidence Interval for High Premium: [0.0615, 0.0635]
+        - Confidence Interval for Low Premium: [0.1285, 0.1314]
+        """)
+
+        # Inference
+        st.write("""
+        ### Inference:
+        The average purchase rate % for high-premium products is significantly higher than for low-premium products. 
+        We reject the null hypothesis and conclude that there is a significant difference in purchase behaviors basis product's premiumness
+        """)
+
+    with tab1:
+
+        # Display hypothesis testing description
+        st.write("# Hypothesis Testing 1")
+
+        # Introduction to the hypothesis testing scenario
+        st.write("""
+        'Runail' is currently the most popular brand on the platform. 
+        
+        But, we have a question: does it truly stand out in terms of purchase rate%,
+        or is its average purchase rate% quite similar to that of other brands? 
+        """)
+
+        brand1_sg_image = Image.open(brand1_sg_image) # Replace with the correct path
+        st.image(brand1_sg_image, use_column_width=True)
+
+        st.write("""
+        Our goal here is to test if 'Runail's purchase behavior is significantly 
+        different from the overall average purchase rate% of all brands. Let's dig into the data and find out.
+        """)
+
+        brand2_sg_image = Image.open(brand2_sg_image) # Replace with the correct path
+        st.image(brand2_sg_image, use_column_width=True)
+
+        st.write("""
+        As you can see in the bar graph above and below, we now have a understanding of the mean and variance of 'Runail' compared to other brands. 
+            """)
+        st.write("")
+
+        # Display the result of the t-test with a third image
+
+        brand3_sg_image = Image.open(brand3_sg_image) # Replace with the correct path
+        st.image(brand3_sg_image, use_column_width=True)
+
+        # Mentioning the next step
+        st.write("""
+            Let's look at the results of the One-Sample t-test and see if 'Runail' really stands out.
+        """)
+
+        # Show the final image after t-test analysis
+
+        brand4_sg_image = Image.open(brand4_sg_image) # Replace with the correct path
+        st.image(brand4_sg_image, use_column_width=True)
+        
+        # Display inference text
+        st.write("""
+        The p-value is zero, and the  population mean does not lie in the confidence intervals of 'Runail'. This means the difference in purchase rate % is significant.
+        """)
+
+        st.write("""
+        - Confidence Interval for Runail: [ 0.204826, 0.233416 ]
+        - Population mean : [ 0.204826, 0.233416 ]
+        """)
+        
+        
+        st.write("""
+        ### Inference: 
+
+        From the t-test results, we observe that the population mean (0.146) is not within the 95% confidence interval of 'Runail’s sample mean 
+        (0.204, 0.233). This leads us to reject the null hypothesis that 'Runail’s average purchase rate% is similar to the overall average.
+        
+        This means that 'Runail' does indeed stand out in terms of purchase behavior, and its average purchase rate % is significantly higher than 
+        the overall average of all brands on the e-commerce platform. 
+        
+        """)
 
 # Bayesian Recommendation Tab
 elif selected_page == "Recommendations - Bayesian approach":
