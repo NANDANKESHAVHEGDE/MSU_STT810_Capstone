@@ -1,0 +1,86 @@
+```{r}
+# Install the required packages listed in requirements.txt
+# packages <- readLines("../requirements.txt")
+# install.packages(packages)
+```
+title: "E-commerce Recommendation System"
+author: "Nandan Keshav Hegde & Team"
+date: "`r Sys.Date()`"
+output: html_document
+
+```{r}
+
+# Load necessary packages
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+library(recommenderlab)
+
+```
+
+```{r}
+
+# Specify the full path to the CSV file
+file_path <- "C:/Users/Nandan Hegde/.cache/kagglehub/datasets/mkechinov/ecommerce-events-history-in-electronics-store/versions/1/events.csv"
+
+# Read the CSV file
+data <- read.csv(file_path)
+
+# Check the first few rows to ensure the data was read correctly
+head(data)
+
+```
+```{r}
+# View a summary of the data
+summary(data)
+colSums(is.na(data))
+
+# Check for missing values
+```
+
+
+```{r}
+
+# Replace missing values in brand and category_code
+data <- data %>%
+  mutate(
+    brand = ifelse(is.na(brand) | brand == "", "Unknown", brand),
+    category_code = ifelse(is.na(category_code) | category_code == "", "Unknown", category_code)
+  )
+
+```
+
+```{r}
+
+# Convert event_time to a POSIXct format
+data <- data %>%
+  mutate(event_time = ymd_hms(event_time))
+
+# Extract additional time-based features (day of the week, hour)
+data <- data %>%
+  mutate(
+    event_day = wday(event_time, label = TRUE),
+    event_hour = hour(event_time)
+  )
+
+```
+
+```{r}
+# Arrange by user_session and event_time to compute session-based metrics
+data <- data %>%
+  arrange(user_session, event_time) %>%
+  group_by(user_session) %>%
+  mutate(
+    inter_event_time = as.numeric(difftime(event_time, lag(event_time, default = first(event_time)), units = "secs"))
+  ) %>%
+  ungroup()
+
+# Fill NA values in inter_event_time with 0 (for the first event in each session)
+data$inter_event_time[is.na(data$inter_event_time)] <- 0
+
+# Preview the resulting dataset
+head(data)
+
+```
+

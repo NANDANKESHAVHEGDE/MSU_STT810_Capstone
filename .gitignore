@@ -1,0 +1,36 @@
+# R related ignores
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user
+
+# Python related ignores (if you are using Python at some point)
+__pycache__/
+*.py[cod]
+.env
+*.pyo
+
+# config folder (this is where you store sensitive information or settings)
+config/
+
+# Ignore data folder if you're keeping large datasets locally and don't want them on GitHub
+Interim_Data/*.csv
+
+
+# Ignore reports if you are generating large reports dynamically
+reports/
+Interim_Data/
+
+# Ignore logs or temporary files
+*.log
+*.tmp
+*.bak
+**/.ipynb_checkpoints/
+
+
+*.pkl
+Interim_Data/*.pkl
+
+# Ignore any system files
+.DS_Store
+Thumbs.db
