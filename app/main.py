@@ -153,7 +153,7 @@ if selected_page == "Overview":
             """
             <div class='metric-box'>
                 <div class='metric-title'>Key Techniques</div>
-                <div>Collaborative Filtering, Bayesian Analysis</div>
+                <div>Bayesian and Frequentist analysis</div>
             </div>
             """,
             unsafe_allow_html=True,
