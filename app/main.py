@@ -79,6 +79,8 @@ brand1_sg_image = BASE_DIR / "Images" / "brand1_sg.png"
 brand2_sg_image = BASE_DIR / "Images" / "brand2_sg.png"
 brand3_sg_image = BASE_DIR / "Images" / "brand3_sg.png"
 brand4_sg_image = BASE_DIR / "Images" / "brand4_sg.png"
+by_image1= BASE_DIR / "Images" / "Bayesian1_sg.png"
+
 
 # hpt_image1= BASE_DIR / "Images" / "Hypothesis_testing1.PNG"
 # hpt_image2= BASE_DIR / "Images" / "Hypothesis_testing2.PNG"
@@ -412,7 +414,7 @@ elif selected_page == 'Hypothesis Testing':
     # def show(image_url):
     #     st.image(image_url, use_column_width=True)
 
-    tab1, tab2 = st.tabs(["Hypothesis Testing 1", "Hypothesis Testing 2"])
+    tab1, tab2 = st.tabs(["One Sample T-Test", "Two Sample T-Test"])
 
     with tab2:
         # Display hypothesis testing description
@@ -556,67 +558,70 @@ elif selected_page == "Recommendations - Bayesian approach":
         unsafe_allow_html=True,
     )
 
-    # Explain the Bayesian Model
-    st.markdown("### Bayesian Model Overview")
-    st.latex(r"P(A|B) = \frac{P(B|A)P(A)}{P(B)}")
+    st.write("")
+    # Introduction to the formula
+    st.write("### Posterior Probability (general) :")
+    
+    st.latex(r"""
+    P(A | B) = \frac{
+    P(B|A) \cdot P(A) 
+    }{P(B)}
+    """)
+    st.write("")
 
-    st.markdown(
-        """
-        **Explanation:**  
-        The posterior probability \( P(A|B) \) represents the probability of an event \( A \) (e.g., a user purchasing a product) given evidence \( B \) 
-        (e.g., cart additions or past purchases). The Bayesian formula uses:
-        - \( P(A) \): The prior probability, representing the baseline likelihood of an event before observing evidence.
-        - \( P(B|A) \): The likelihood, indicating how probable the evidence is if the event \( A \) is true.
-        - \( P(B) \): The marginal probability of observing the evidence.
+    st.write("### Posterior Probability for Purchase Prediction:")
+    st.write("")
+    st.latex(r"""
+    P(purchase | product, user) = \frac{
+    P(premiumness(product)|purchase) \cdot P(premiumness(user)|purchase) \cdot 
+    P(category(product)|purchase) \cdot P(category(user)|purchase) \cdot 
+    P(brand(product)|purchase) \cdot P(brand(user)|purchase) \cdot
+    P(purchase)
+    }{P(product) \cdot P(user)}
+    """)
+    
+    st.write("""
+    This formula computes the probability of a purchase event based on the observed features for both the product and user. 
+    By calculating the likelihoods of various product and user characteristics, we can predict the probability that a user will purchase a particular product.
+    """)
 
-        This framework enables dynamic updates to recommendations as new data becomes available.
-        """
-    )
+    # Moving forward with the recommendation logic
+    st.write("### Product Recommendation Strategy")
+    
+    # Create the DataFrame with observed likelihoods for product and user
+    data = {
+        "Feature": ["Brand (RUNAIL)", "Premiumness (HIGH)", "Category (292)", "Prior"],
+        "Product": [0.073735, 0.044598, 0.080365, 0.051892],
+        "User": [0.014652, 0.012371, 0.013636, 0.016463]
+    }
+    
+    df10 = pd.DataFrame(data)
 
-    # Display the Dataframe with Posterior Probabilities
-    by_image2_path = Image.open(by_image2) # Replace with the correct path
-    st.markdown("### Posterior Probability Table")
-    st.image(by_image2_path, caption="Bayesian Posterior Probabilities for Recommendations")
+    st.write(f"For user = 399445659 and product = 5809910, which belongs to High Premium and 'RUNAIL' brand, the calculated likelihoods are shown below:")
 
-    # Insights
-    st.markdown(
-        """
-        **Insights from Posterior Probabilities:**  
-        - The posterior probabilities provide a refined ranking of product recommendations based on user interaction data.  
-        - Products with higher posterior probabilities are more likely to be purchased by the corresponding user.  
-        - This approach accounts for prior behaviors (e.g., cart additions) and updates dynamically with new evidence.
-        """
-    )
+    # Display the DataFrame as a table in Streamlit
+    st.table(df10)
 
-    # Use Case Examples
-    by_image1_path = Image.open(by_image1) # Replace with the correct path
-    st.markdown("### Use Case Examples")
-    st.image(by_image1_path, caption="Posterior Probabilities for Top Users and Products")
+    
+    st.write("""
+    Now, using the above likelihoods, we can calculate the posterior probabilities for a user purchasing different products. 
+    By ranking these probabilities in descending order, we can recommend the products with the highest likelihood of purchase to users.
+    """)
 
-    st.markdown(
-        """
-        **Key Observations:**  
-        - **Top Users:** For users with a rich history of interactions, the Bayesian model provides personalized recommendations with high confidence.
-        - **Top Products:** Products frequently added to carts but rarely purchased may receive lower posterior probabilities, highlighting conversion opportunities.
-        - **Example:** User 399445569 shows a 2.53\% likelihood of purchasing Product 5809910, which aligns with their interaction history.
 
-        **Actionable Insights:**  
-        - Utilize high posterior probability products for targeted promotions or personalized notifications.
-        - For products with low posterior probabilities, consider strategies to improve visibility or address conversion barriers.
-        """
-    )
+    
+    st.write("#### Example - Probabilities of a user buying different products")
+    st.write("For 2 users and 10 products, let's calculate the likelihood!")
+    
+    # Show image to visualize the recommendation system
+    by_image1 = Image.open(by_image1) # Replace with the correct path
+    st.image(by_image1, use_column_width=True)
 
-    # Conclusion Section
-    st.markdown(
-        """
-        <div class='sub-header'>
-        **Conclusion:**  
-        The Bayesian approach introduces flexibility and precision into the recommendation process, enabling data-driven, probabilistic decision-making. 
-        This methodology seamlessly integrates prior knowledge, observed behaviors, and dynamic updates to generate effective and scalable recommendations.
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    st.write("")
+    st.write("""
+    Based on these probabilities, we can rank the products in descending order of purchase likelihood and make product recommendations to users, 
+    ensuring they receive personalized suggestions that maximize the likelihood of conversion.
+    """)
 
 # Price Sensitivity Page
 elif selected_page == "Price Analysis":
